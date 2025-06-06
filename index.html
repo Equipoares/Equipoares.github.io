@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,8 +7,10 @@
     <title>Formulario de contacto</title>
     <style>
         body {
-            background-image: url('data:image/https://www.google.com/url?sa=i&url=https%3A%2F%2Fblog.mifiel.com%2Fclasificacion-contratos-guia%2F&psig=AOvVaw2qPFbOrdGliQODt5eJoGZH&ust=1732063982686000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCKCvhqqX54kDFQAAAAAdAAAAABAajpeg;=');
+            background-image: url('https://blog.mifiel.com/wp-content/uploads/2020/08/contrato.jpg');
             background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
             font-family: Arial, sans-serif;
             color: #333333;
         }
@@ -20,11 +22,11 @@
 
         .container {
             width: 400px;
-            margin: 0 auto;
+            margin: 50px auto;
             padding: 20px;
-            background-color: rgba(255, 255, 255, 0.9);
+            background-color: rgba(255, 255, 255, 0.95);
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
             border: 4px solid #FF4081;
         }
 
@@ -41,12 +43,12 @@
             border: 1px solid #CCCCCC;
             border-radius: 4px;
             box-sizing: border-box;
+            margin-bottom: 12px;
         }
 
-        input[type="submit"] {
+        button {
             width: 100%;
             padding: 12px;
-            margin-top: 16px;
             background-color: #FF4081;
             border: none;
             border-radius: 4px;
@@ -55,11 +57,10 @@
             cursor: pointer;
         }
 
-        input[type="submit"]:hover {
+        button:hover {
             background-color: #E91E63;
         }
 
-        /* Estilo para cambiar el color de las etiquetas */
         label[for="username"],
         label[for="phone"],
         label[for="email"] {
@@ -70,7 +71,7 @@
 <body>
     <div class="container">
         <h2>Formulario de contacto</h2>
-        <form id="contactForm" action="pag1.html" method="POST" onsubmit="return validateForm()">
+        <form id="contactForm">
             <label for="username">Nombre de usuario:</label>
             <input type="text" id="username" name="username" required>
 
@@ -80,31 +81,37 @@
             <label for="phone">Número de teléfono:</label>
             <input type="tel" id="phone" name="phone" maxlength="10" pattern="\d{10}" required>
 
-            <!-- Botón de envío -->
-            <input type="submit" value="ENVIAR">
+            <button type="button" onclick="validateAndRedirect()">ENVIAR</button>
         </form>
     </div>
 
     <script>
-        function validateForm() {
-            var email = document.getElementById("email").value;
-            var phone = document.getElementById("phone").value;
+        function validateAndRedirect() {
+            var username = document.getElementById("username").value.trim();
+            var email = document.getElementById("email").value.trim();
+            var phone = document.getElementById("phone").value.trim();
+
+            // Validar campos vacíos
+            if (username === "" || email === "" || phone === "") {
+                alert("Por favor, complete todos los campos.");
+                return;
+            }
 
             // Validación de correo electrónico
             if (email.indexOf('@') === -1) {
                 alert("Por favor, ingrese un correo electrónico válido que contenga '@'.");
-                return false; // Evita el envío del formulario.
+                return;
             }
 
             // Validación de número de teléfono
             if (!/^\d{10}$/.test(phone)) {
                 alert("El número de teléfono debe contener exactamente 10 dígitos numéricos.");
-                return false; // Evita el envío del formulario.
+                return;
             }
 
-            return true; // Permite el envío del formulario si la validación pasa.
+            // Si todo es válido, redirigir a pag1.html
+            window.location.href = "pag1.html";
         }
     </script>
 </body>
 </html>
-
